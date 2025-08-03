@@ -6,7 +6,7 @@ namespace BT
 {
 
     [GlobalClass]
-    public partial class Blackboard : Godot.Resource
+    public partial class Blackboard : Node
     {
         [Export]
         public Dictionary<string, Variant> Data = [];
