@@ -1,13 +1,14 @@
 using Godot;
 using System;
 
+[GlobalClass]
 public partial class BT_Root : BT_Node
 {
     public bool Active = true;
 
     public override NodeState Tick()
     {
-        if(!Active)
+        if (!Active)
         {
             return NodeState.SUCCESS;
         }
