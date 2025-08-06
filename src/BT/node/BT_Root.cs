@@ -8,17 +8,15 @@ public partial class BT_Root : BT_Node
 
     public override NodeState Tick()
     {
-        if (!Active)
-        {
-            return NodeState.SUCCESS;
-        }
+        var response = NodeState.RUNNING;
         foreach (var child in GetChildren())
         {
             if (child is BT_Node node)
             {
-                node.Tick();
+                node.CurrentState = node.Tick();
             }
         }
-        return Tick();
+        CurrentState = response;
+        return response;
     }
 }

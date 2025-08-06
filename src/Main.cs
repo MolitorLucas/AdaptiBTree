@@ -16,12 +16,12 @@ public partial class Main : Control
         UpdateTree();
     }
 
-    public override async Task _Process(double delta)
+    public override void _Process(double delta)
     {
         UpdateTree();
     }
 
-    private void UpdateTree()
+    private async void UpdateTree()
     {
         foreach (var child in _treeContainer.GetChildren())
         {
@@ -30,8 +30,10 @@ public partial class Main : Control
         }
         if (RootNode != null)
         {
+            RootNode.Tick(); 
             AddNodeToUI(RootNode, _treeContainer, 0);
-            RootNode?.Tick();  
+            SceneTreeTimer timer = GetTree().CreateTimer(3.0f);
+            await ToSignal(timer, SceneTreeTimer.SignalName.Timeout);
         }
             
             
@@ -41,7 +43,7 @@ public partial class Main : Control
     {
         var label = new Label
         {
-            Text = $"{new string(' ', indent * 2)}{node.GetType().Name}: {node.CurrentState}",
+            Text = $"{new string(' ', indent * 6)}{node.GetType().Name}: {node.CurrentState}",
             Modulate = GetColorForState(node.CurrentState)
         };
         parent.AddChild(label);

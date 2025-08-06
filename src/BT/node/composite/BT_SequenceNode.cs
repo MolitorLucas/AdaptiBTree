@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[GlobalClass]
 public partial class BT_SequenceNode : BT_Node
 {
     public override NodeState Tick()
@@ -9,10 +10,10 @@ public partial class BT_SequenceNode : BT_Node
         {
             if (child is BT_Node node)
             {
-                var result = node.Tick();
-                if (result == NodeState.FAILURE)
+                node.CurrentState = node.Tick();
+                if (node.CurrentState == NodeState.FAILURE)
                     return NodeState.FAILURE;
-                if (result == NodeState.RUNNING)
+                if (node.CurrentState == NodeState.RUNNING)
                     return NodeState.RUNNING;
             }
         }

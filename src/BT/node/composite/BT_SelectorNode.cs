@@ -1,18 +1,21 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
+[GlobalClass]
 public partial class BT_SelectorNode : BT_Node
 {
     public override NodeState Tick()
     {
         foreach (var child in GetChildren())
         {
+            this.AwaitSceneTimer(1.0f);
             if (child is BT_Node node)
             {
-                var result = node.Tick();
-                if (result == NodeState.SUCCESS)
+                node.CurrentState = node.Tick();
+                if (node.CurrentState == NodeState.SUCCESS)
                     return NodeState.SUCCESS;
-                if (result == NodeState.RUNNING)
+                if (node.CurrentState == NodeState.RUNNING)
                     return NodeState.RUNNING;
             }
         }

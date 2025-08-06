@@ -12,10 +12,10 @@ public partial class BT_InverterNode : BT_Node
         if (ChildNode == null)
             return NodeState.FAILURE;
 
-        var childState = ChildNode.Tick();
-        if (childState == NodeState.FAILURE)
+        ChildNode.CurrentState = ChildNode.Tick();
+        if (ChildNode.CurrentState == NodeState.FAILURE)
             return NodeState.SUCCESS;
-        if (childState == NodeState.SUCCESS)
+        if (ChildNode.CurrentState == NodeState.SUCCESS)
             return NodeState.FAILURE;
         return NodeState.RUNNING;
     }
