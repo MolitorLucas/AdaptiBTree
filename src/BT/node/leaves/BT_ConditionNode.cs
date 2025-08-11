@@ -2,12 +2,17 @@ using Godot;
 using System;
 
 [GlobalClass]
-public abstract partial class BT_ConditionNode : BT_Node
+public partial class BT_ConditionNode : BT_Node
 {
-    protected abstract bool CheckCondition();
-
-    public override NodeState Tick()
+    protected virtual bool CheckCondition()
     {
-        return CheckCondition() ? NodeState.SUCCESS : NodeState.FAILURE;
+        GD.PrintErr("CheckCondition method not implemented in " + GetType().Name);
+        return false;
+    }
+
+    public override NodeState Tick(Node2D actor, Blackboard blackboard)
+    {
+        CurrentState = CheckCondition() ? NodeState.SUCCESS : NodeState.FAILURE;
+        return CurrentState;
     }
 }

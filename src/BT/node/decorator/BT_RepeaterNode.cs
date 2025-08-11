@@ -15,7 +15,7 @@ public partial class BT_RepeaterNode : BT_Node
         ChildNode = GetChild(0) as BT_Node;
     }
 
-    public override NodeState Tick()
+    public override NodeState Tick(Node2D actor, Blackboard blackboard)
     {
         if (ChildNode == null)
         {
@@ -31,7 +31,7 @@ public partial class BT_RepeaterNode : BT_Node
         int count = 0;
         while (count < RepeatCount)
         {
-            ChildNode.CurrentState = ChildNode.Tick();
+            ChildNode.CurrentState = ChildNode.Tick(actor, blackboard);
             if (ChildNode.CurrentState == NodeState.SUCCESS)
                 return NodeState.SUCCESS;
             count++;

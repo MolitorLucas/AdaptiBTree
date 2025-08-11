@@ -6,6 +6,6 @@ public abstract partial class BT_Node : Node
 {
     public NodeState CurrentState { get; set; } = NodeState.IDLE;
 
-    public abstract NodeState Tick();
+    public abstract NodeState Tick(Node2D actor, Blackboard blackboard);
 
 }

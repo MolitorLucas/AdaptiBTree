@@ -7,6 +7,8 @@ public partial class Main : Control
     [Export]
     public BT_Node RootNode { get; set; }
 
+    public Blackboard Blackboard { get; set; } = new Blackboard();
+
     private VBoxContainer _treeContainer;
 
     public override void _Ready()
@@ -21,8 +23,9 @@ public partial class Main : Control
         UpdateTree();
     }
 
-    private async void UpdateTree()
+    private void UpdateTree()
     {
+        Blackboard.SetValue("character_speed", 200);
         foreach (var child in _treeContainer.GetChildren())
         {
             if (child is Label label)
@@ -30,10 +33,8 @@ public partial class Main : Control
         }
         if (RootNode != null)
         {
-            RootNode.Tick(); 
+            RootNode.Tick(RootNode.GetParent<Node2D>(), Blackboard); 
             AddNodeToUI(RootNode, _treeContainer, 0);
-            SceneTreeTimer timer = GetTree().CreateTimer(3.0f);
-            await ToSignal(timer, SceneTreeTimer.SignalName.Timeout);
         }
             
             

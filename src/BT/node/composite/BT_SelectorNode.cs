@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 [GlobalClass]
 public partial class BT_SelectorNode : BT_Node
 {
-    public override NodeState Tick()
+    public override NodeState Tick(Node2D actor, Blackboard blackboard)
     {
         foreach (var child in GetChildren())
         {
-            this.AwaitSceneTimer(1.0f);
             if (child is BT_Node node)
             {
-                node.CurrentState = node.Tick();
+                node.CurrentState = node.Tick(actor, blackboard);
                 if (node.CurrentState == NodeState.SUCCESS)
                     return NodeState.SUCCESS;
                 if (node.CurrentState == NodeState.RUNNING)

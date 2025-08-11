@@ -2,48 +2,45 @@ using Godot;
 using System;
 using Godot.Collections;
 
-namespace BT
+[GlobalClass]
+public partial class Blackboard : Node
 {
+    [Export]
+    public Dictionary<string, Variant> Data = [];
 
-    [GlobalClass]
-    public partial class Blackboard : Node
+    public void SetValue(string key, Variant value)
     {
-        [Export]
-        public Dictionary<string, Variant> Data = [];
-
-        public void SetValue(string key, Variant value)
+        if (Data.ContainsKey(key))
         {
-            if (Data.ContainsKey(key))
-            {
-                Data[key] = value;
-            }
-            else
-            {
-                Data.Add(key, value);
-            }
+            Data[key] = value;
         }
-
-        public Variant GetValue(string key)
+        else
         {
-            if (Data.TryGetValue(key, out var value))
-            {
-                return value;
-            }
-            GD.PrintErr($"Key '{key}' not found in the blackboard.");
-            return "";
+            Data.Add(key, value);
         }
-
-
-        public bool HasKey(string key)
-        {
-            return Data.ContainsKey(key);
-        }
-
-        public void RemoveKey(string key)
-        {
-            Data.Remove(key);
-        }
-
-
     }
+
+    public Variant GetValue(string key)
+    {
+        if (Data.TryGetValue(key, out var value))
+        {
+            return value;
+        }
+        GD.PrintErr($"Key '{key}' not found in the blackboard.");
+        return "";
+    }
+
+
+    public bool HasKey(string key)
+    {
+        return Data.ContainsKey(key);
+    }
+
+    public void RemoveKey(string key)
+    {
+        Data.Remove(key);
+    }
+
+
 }
+

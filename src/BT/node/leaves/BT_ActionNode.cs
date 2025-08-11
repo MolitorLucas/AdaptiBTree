@@ -3,49 +3,22 @@ using System;
 using System.Threading.Tasks;
 
 [GlobalClass]
-public abstract partial class BT_ActionExecutor : Godot.Node
-{
-    public abstract Task<NodeState> Execute();
-}
-public partial class TestActionExecutor : BT_ActionExecutor
-{
-    public override async Task<NodeState> Execute()
-    {
-        this.AwaitSceneTimer(1.0f);
-        var result = await Task.Run(
-            () =>
-            {
-
-                var possibleResults = new[] { NodeState.SUCCESS, NodeState.FAILURE, NodeState.RUNNING };
-                RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
-                randomNumberGenerator.Randomize();
-                var chosen = randomNumberGenerator.RandiRange(0, possibleResults.Length - 1);
-                return possibleResults[chosen];
-            }
-        );
-        return result;
-    }
-}
-[GlobalClass]
 public partial class BT_ActionNode : BT_Node
 {
-    [Export]
-    public BT_ActionExecutor ActionExecutor { get; set; }
-
-    private Task<NodeState> _currentTask;
-    private NodeState _lastResult = NodeState.RUNNING;
-
-    public override void _Ready()
+    public virtual Task<NodeState> Execute(Node2D actor, Blackboard blackboard)
     {
-        ActionExecutor ??= new TestActionExecutor();
-        AddChild(ActionExecutor);
+        GD.PrintErr("Execute method not implemented in " + GetType().Name);
+        return Task.FromResult(NodeState.FAILURE);
     }
 
-    public override NodeState Tick()
+    protected Task<NodeState> _currentTask;
+    protected NodeState _lastResult = NodeState.IDLE;
+
+    public override NodeState Tick(Node2D actor, Blackboard blackboard)
     {
         if (_currentTask == null)
         {
-            _currentTask = ActionExecutor.Execute();
+            _currentTask = Execute(actor, blackboard);
             _lastResult = NodeState.RUNNING;
             return _lastResult;
         }
@@ -66,6 +39,7 @@ public partial class BT_ActionNode : BT_Node
         }
         var result = _lastResult;
         _currentTask = null;
+        _lastResult = NodeState.IDLE; 
         return result;
     }
 }
