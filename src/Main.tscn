@@ -1,9 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://djn7kgjrvxnd"]
+[gd_scene load_steps=8 format=3 uid="uid://djn7kgjrvxnd"]
 
 [ext_resource type="Script" uid="uid://ord5pidwmr3i" path="res://src/Main.cs" id="1_4gxt3"]
 [ext_resource type="PackedScene" uid="uid://cnjbee0h72nw7" path="res://src/character/ai/BasicAI.tscn" id="2_5qjmp"]
 [ext_resource type="Texture2D" uid="uid://cu48wwpwuqctp" path="res://icon.svg" id="5_vjwby"]
 [ext_resource type="Script" uid="uid://cg7rwkie8uqah" path="res://src/controllers/MovementController.cs" id="6_8ec3e"]
+
+[sub_resource type="Gradient" id="Gradient_5qjmp"]
+colors = PackedColorArray(0.339605, 0.542632, 1, 1, 0.717836, 0.810376, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vjwby"]
+gradient = SubResource("Gradient_5qjmp")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ec3e"]
 
@@ -17,12 +23,17 @@ offset_bottom = 40.0
 script = ExtResource("1_4gxt3")
 RootNode = NodePath("../Player/BasicAI")
 
+[node name="Safezone" type="Sprite2D" parent="."]
+position = Vector2(640, 96)
+scale = Vector2(3, 3)
+texture = SubResource("GradientTexture2D_vjwby")
+
 [node name="Player" type="Node2D" parent="."]
 position = Vector2(640, 360)
 
 [node name="BasicAI" parent="Player" instance=ExtResource("2_5qjmp")]
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
+[node name="Boneco" type="Sprite2D" parent="Player"]
 texture = ExtResource("5_vjwby")
 
 [node name="MovementController" type="CharacterBody2D" parent="Player"]
