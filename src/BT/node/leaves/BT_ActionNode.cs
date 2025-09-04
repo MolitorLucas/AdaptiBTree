@@ -12,7 +12,7 @@ public partial class BT_ActionNode : BT_Node
     }
 
     protected Task<NodeState> _currentTask;
-    protected NodeState _lastResult = NodeState.IDLE;
+    public NodeState _lastResult = NodeState.IDLE;
 
     public override NodeState Tick(Node2D actor, Blackboard blackboard)
     {

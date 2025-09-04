@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnjbee0h72nw7"]
+[gd_scene load_steps=4 format=3 uid="uid://cnjbee0h72nw7"]
 
 [ext_resource type="Script" uid="uid://bgpdouh351y4j" path="res://src/BT/node/BT_Root.cs" id="1_110s3"]
 [ext_resource type="Script" uid="uid://0s26oh5hnvr5" path="res://src/BT/node/composite/BT_SelectorNode.cs" id="2_xgkgh"]
-[ext_resource type="Script" uid="uid://du4hisxdpqsi3" path="res://src/BT/node/composite/BT_SequenceNode.cs" id="3_tkx2w"]
-[ext_resource type="Script" uid="uid://b7fm5f0lwd0qr" path="res://src/character/ai/actions/GoToMousePosition.cs" id="4_tkx2w"]
+[ext_resource type="PackedScene" uid="uid://3r7yjggynk0g" path="res://bt_sequence_node.tscn" id="3_xgkgh"]
 
 [node name="BasicAI" type="Node"]
 script = ExtResource("1_110s3")
@@ -13,10 +12,4 @@ metadata/_custom_type_script = "uid://bgpdouh351y4j"
 script = ExtResource("2_xgkgh")
 metadata/_custom_type_script = "uid://0s26oh5hnvr5"
 
-[node name="BT_SequenceNode" type="Node" parent="BT_SelectorNode"]
-script = ExtResource("3_tkx2w")
-metadata/_custom_type_script = "uid://du4hisxdpqsi3"
-
-[node name="BT_ActionNode" type="Node" parent="BT_SelectorNode/BT_SequenceNode"]
-script = ExtResource("4_tkx2w")
-metadata/_custom_type_script = "uid://besxrvpoc402p"
+[node name="BT_SequenceNode" parent="BT_SelectorNode" instance=ExtResource("3_xgkgh")]

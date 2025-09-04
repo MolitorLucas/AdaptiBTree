@@ -3,11 +3,16 @@ using System;
 using Godot.Collections;
 
 [GlobalClass]
-public partial class Blackboard : Node
+public partial class Blackboard : Resource
 {
-    [Export]
-    public Dictionary<string, Variant> Data = [];
+    private Dictionary<string, Variant> Data { get; set; } = [];
 
+
+    public Variant this[string key]
+    {
+        get => GetValue(key);
+        set => SetValue(key, value);
+    }
     public void SetValue(string key, Variant value)
     {
         if (Data.ContainsKey(key))

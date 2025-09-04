@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://cxk588muge1i5"]
+
+[node name="AdaptiveAi" type="Node"]
+metadata/_custom_type_script = "uid://bgpdouh351y4j"

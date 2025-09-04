@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 public partial class Main : Control
 {
     [Export]
-    public BT_Node RootNode { get; set; }
-
-    public Blackboard Blackboard { get; set; } = new Blackboard();
+    public BT_Root RootNode { get; set; }
 
     private VBoxContainer _treeContainer;
 
@@ -25,7 +23,6 @@ public partial class Main : Control
 
     private void UpdateTree()
     {
-        Blackboard.SetValue("character_speed", 200);
         foreach (var child in _treeContainer.GetChildren())
         {
             if (child is Label label)
@@ -33,7 +30,7 @@ public partial class Main : Control
         }
         if (RootNode != null)
         {
-            RootNode.Tick(RootNode.GetParent<Node2D>(), Blackboard); 
+            RootNode.Tick(RootNode.GetParent<Node2D>()); 
             AddNodeToUI(RootNode, _treeContainer, 0);
         }
             
