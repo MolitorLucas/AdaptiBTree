@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 [GlobalClass]
 public partial class BT_ActionNode : BT_Node
 {
-    public virtual Task<NodeState> Execute(Node2D actor, Blackboard blackboard)
+    public virtual Task<NodeState> Execute(Node actor, Blackboard blackboard)
     {
         GD.PrintErr("Execute method not implemented in " + GetType().Name);
         return Task.FromResult(NodeState.FAILURE);
@@ -14,7 +14,7 @@ public partial class BT_ActionNode : BT_Node
     protected Task<NodeState> _currentTask;
     public NodeState _lastResult = NodeState.IDLE;
 
-    public override NodeState Tick(Node2D actor, Blackboard blackboard)
+    public override NodeState Tick(Node actor, Blackboard blackboard)
     {
         if (_currentTask == null)
         {

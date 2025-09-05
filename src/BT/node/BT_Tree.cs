@@ -2,16 +2,13 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class BT_Root : BT_Node
+public partial class BT_Tree : Node
 {
     public bool Active = true;
     public Blackboard Blackboard { get; set; } = new Blackboard();
+    public NodeState CurrentState { get; set; } = NodeState.IDLE;
 
-    public BT_Root()
-    {
-        CurrentState = NodeState.RUNNING;
-    }
-    public override NodeState Tick(Node2D actor, Blackboard blackboard = null)
+    public NodeState Tick(Node actor)
     {
         var response = NodeState.RUNNING;
         foreach (var child in GetChildren())

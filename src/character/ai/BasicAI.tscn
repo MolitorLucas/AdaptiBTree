@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cnjbee0h72nw7"]
 
-[ext_resource type="Script" uid="uid://bgpdouh351y4j" path="res://src/BT/node/BT_Root.cs" id="1_110s3"]
+[ext_resource type="Script" uid="uid://bgpdouh351y4j" path="res://src/BT/node/BT_Tree.cs" id="1_110s3"]
 [ext_resource type="Script" uid="uid://0s26oh5hnvr5" path="res://src/BT/node/composite/BT_SelectorNode.cs" id="2_xgkgh"]
 [ext_resource type="PackedScene" uid="uid://3r7yjggynk0g" path="res://bt_sequence_node.tscn" id="3_xgkgh"]
 

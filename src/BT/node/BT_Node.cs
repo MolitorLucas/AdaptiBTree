@@ -16,6 +16,6 @@ public abstract partial class BT_Node : Node
         }
     }
 
-    public abstract NodeState Tick(Node2D actor, Blackboard blackboard);
+    public abstract NodeState Tick(Node actor, Blackboard blackboard);
 
 }

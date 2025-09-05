@@ -3,7 +3,7 @@ using System;
 
 public partial class FleeingAdaptation : BT_AdaptiveNode
 {
-    public override void BeforeAdaptativeAction(Node2D actor, Blackboard blackboard)
+    public override void BeforeAdaptativeAction(Node actor, Blackboard blackboard)
     {
         if (!blackboard.HasKey("fleeingSubTree"))
         {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 public partial class Main : Control
 {
     [Export]
-    public BT_Root RootNode { get; set; }
+    public BT_Tree RootNode { get; set; }
 
     private VBoxContainer _treeContainer;
 

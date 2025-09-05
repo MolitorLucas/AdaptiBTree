@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 [GlobalClass]
 public partial class BT_SelectorNode : BT_Node
 {
-    public override NodeState Tick(Node2D actor, Blackboard blackboard)
+    public override NodeState Tick(Node actor, Blackboard blackboard)
     {
         foreach (var child in GetChildren())
         {

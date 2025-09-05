@@ -15,7 +15,7 @@ public partial class BT_RepeaterNode : BT_Node
         ChildNode = GetChild(0) as BT_Node;
     }
 
-    public override NodeState Tick(Node2D actor, Blackboard blackboard)
+    public override NodeState Tick(Node actor, Blackboard blackboard)
     {
         if (ChildNode == null)
         {
