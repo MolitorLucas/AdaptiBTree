@@ -12,7 +12,7 @@ public partial class BT_ActionNode : BT_Node
     }
 
     protected Task<NodeState> _currentTask;
-    public NodeState _lastResult = NodeState.IDLE;
+    public NodeState _lastResult = NodeState.INVALID;
 
     public override NodeState Tick(Node actor, Blackboard blackboard)
     {
@@ -39,7 +39,6 @@ public partial class BT_ActionNode : BT_Node
         }
         var result = _lastResult;
         _currentTask = null;
-        _lastResult = NodeState.IDLE; 
         return result;
     }
 }

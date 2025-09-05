@@ -13,6 +13,7 @@ public partial class Blackboard : Resource
         get => GetValue(key);
         set => SetValue(key, value);
     }
+    
     public void SetValue(string key, Variant value)
     {
         if (Data.ContainsKey(key))
@@ -31,10 +32,8 @@ public partial class Blackboard : Resource
         {
             return value;
         }
-        GD.PrintErr($"Key '{key}' not found in the blackboard.");
         return "";
     }
-
 
     public bool HasKey(string key)
     {
@@ -45,7 +44,6 @@ public partial class Blackboard : Resource
     {
         Data.Remove(key);
     }
-
 
 }
 

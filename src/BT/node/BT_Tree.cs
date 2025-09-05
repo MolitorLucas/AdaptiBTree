@@ -6,7 +6,7 @@ public partial class BT_Tree : Node
 {
     public bool Active = true;
     public Blackboard Blackboard { get; set; } = new Blackboard();
-    public NodeState CurrentState { get; set; } = NodeState.IDLE;
+    public NodeState CurrentState { get; set; } = NodeState.INVALID;
 
     public NodeState Tick(Node actor)
     {
