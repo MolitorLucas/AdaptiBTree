@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://3r7yjggynk0g"]
+
+[ext_resource type="Script" uid="uid://du4hisxdpqsi3" path="res://src/BT/node/composite/BT_SequenceNode.cs" id="1_qsvg2"]
+[ext_resource type="Script" uid="uid://b7fm5f0lwd0qr" path="res://src/character/ai/actions/GoToMousePosition.cs" id="2_2rf0j"]
+[ext_resource type="Script" uid="uid://bsx0x80dx6dw3" path="res://src/character/ai/conditions/IsCloseToMouse.cs" id="3_85seo"]
+
+[node name="BT_SequenceNode" type="Node"]
+script = ExtResource("1_qsvg2")
+metadata/_custom_type_script = "uid://du4hisxdpqsi3"
+
+[node name="BT_ActionNode" type="Node" parent="."]
+script = ExtResource("2_2rf0j")
+metadata/_custom_type_script = "uid://besxrvpoc402p"
+
+[node name="BT_ConditionNode" type="Node" parent="."]
+script = ExtResource("3_85seo")
+metadata/_custom_type_script = "uid://5xwy31v3qxud"

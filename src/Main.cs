@@ -37,22 +37,6 @@ public partial class Main : Control
             
     }
 
-    private void AddNodeToUI(BT_Tree node, VBoxContainer parent, int indent)
-    {
-        var label = new Label
-        {
-            Text = $"{new string(' ', indent * 6)}{node.GetType().Name}: {node.CurrentState}",
-            Modulate = GetColorForState(node.CurrentState)
-        };
-        parent.AddChild(label);
-
-        foreach (var child in node.GetChildren())
-        {
-            if (child is BT_Node btChild)
-                AddNodeToUI(btChild, parent, indent + 1);
-        }
-    }
-
     private void AddNodeToUI(BT_Node node, VBoxContainer parent, int indent)
     {
         var label = new Label

@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://djn7kgjrvxnd"]
+[gd_scene load_steps=8 format=3 uid="uid://djn7kgjrvxnd"]
 
 [ext_resource type="Script" uid="uid://ord5pidwmr3i" path="res://src/Main.cs" id="1_4gxt3"]
-[ext_resource type="PackedScene" uid="uid://cnjbee0h72nw7" path="res://src/character/test/ai/BasicAI.tscn" id="2_5qjmp"]
-[ext_resource type="Script" uid="uid://bofymvt3lu06p" path="res://src/Player.cs" id="2_vjwby"]
+[ext_resource type="PackedScene" uid="uid://cnjbee0h72nw7" path="res://src/character/ai/BasicAI.tscn" id="2_5qjmp"]
 [ext_resource type="Texture2D" uid="uid://cu48wwpwuqctp" path="res://icon.svg" id="5_vjwby"]
 [ext_resource type="Script" uid="uid://cg7rwkie8uqah" path="res://src/controllers/MovementController.cs" id="6_8ec3e"]
 
@@ -29,10 +28,8 @@ position = Vector2(640, 96)
 scale = Vector2(3, 3)
 texture = SubResource("GradientTexture2D_vjwby")
 
-[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("BehaviorTree")]
+[node name="Player" type="Node2D" parent="."]
 position = Vector2(640, 360)
-script = ExtResource("2_vjwby")
-BehaviorTree = NodePath("BasicAI")
 
 [node name="BasicAI" parent="Player" instance=ExtResource("2_5qjmp")]
 
