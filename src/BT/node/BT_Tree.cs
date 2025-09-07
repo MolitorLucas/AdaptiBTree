@@ -13,10 +13,8 @@ public partial class BT_Tree : Node
         var response = NodeState.RUNNING;
         foreach (var child in GetChildren())
         {
-            if (child is BT_Node node)
-            {
-                node.CurrentState = node.Tick(actor, Blackboard);
-            }
+            var node= child as BT_Node;
+            node.CurrentState = node.Tick(actor, Blackboard);
         }
         CurrentState = response;
         return response;

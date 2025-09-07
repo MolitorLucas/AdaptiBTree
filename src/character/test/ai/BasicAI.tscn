@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnjbee0h72nw7"]
+
+[ext_resource type="Script" uid="uid://bgpdouh351y4j" path="res://src/BT/node/BT_Tree.cs" id="1_110s3"]
+[ext_resource type="Script" uid="uid://0s26oh5hnvr5" path="res://src/BT/node/composite/BT_SelectorNode.cs" id="2_xgkgh"]
+[ext_resource type="Script" uid="uid://du4hisxdpqsi3" path="res://src/BT/node/composite/BT_SequenceNode.cs" id="3_55mdj"]
+[ext_resource type="Script" uid="uid://b7fm5f0lwd0qr" path="res://src/character/test/ai/actions/GoToMousePosition.cs" id="4_55mdj"]
+[ext_resource type="Script" uid="uid://bsx0x80dx6dw3" path="res://src/character/test/ai/conditions/IsCloseToMouse.cs" id="5_2kjgc"]
+
+[node name="BasicAI" type="Node"]
+script = ExtResource("1_110s3")
+metadata/_custom_type_script = "uid://bgpdouh351y4j"
+
+[node name="BT_SelectorNode" type="Node" parent="."]
+script = ExtResource("2_xgkgh")
+metadata/_custom_type_script = "uid://0s26oh5hnvr5"
+
+[node name="BT_SequenceNode" type="Node" parent="BT_SelectorNode"]
+script = ExtResource("3_55mdj")
+metadata/_custom_type_script = "uid://du4hisxdpqsi3"
+
+[node name="BT_ActionNode" type="Node" parent="BT_SelectorNode/BT_SequenceNode"]
+script = ExtResource("4_55mdj")
+metadata/_custom_type_script = "uid://besxrvpoc402p"
+
+[node name="BT_ConditionNode" type="Node" parent="BT_SelectorNode/BT_SequenceNode"]
+script = ExtResource("5_2kjgc")
+metadata/_custom_type_script = "uid://5xwy31v3qxud"
