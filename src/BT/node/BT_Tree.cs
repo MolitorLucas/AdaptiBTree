@@ -5,7 +5,8 @@ using System;
 public partial class BT_Tree : Node
 {
     public bool Active = true;
-    public Blackboard Blackboard { get; set; } = new Blackboard();
+    [Export]
+    public Blackboard Blackboard { get; set; }
     public NodeState CurrentState { get; set; } = NodeState.INVALID;
 
     public NodeState Tick(Node actor)

@@ -24,6 +24,7 @@ public partial class BT_AdaptiveNode : BT_Node
 				BeforeAdaptativeAction(actor, blackboard);
 			}
 			NodeState childState = node.Tick(actor, blackboard);
+			node.CurrentState = childState;
 			if (childState != NodeState.RUNNING)
 			{
 				AfterAdaptativeAction(actor, blackboard);

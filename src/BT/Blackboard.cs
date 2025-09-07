@@ -5,7 +5,8 @@ using Godot.Collections;
 [GlobalClass]
 public partial class Blackboard : Resource
 {
-    private Dictionary<string, Variant> Data { get; set; } = [];
+    [Export]
+    public Dictionary<string, Variant> Data { get; set; } = [];
 
 
     public Variant this[string key]

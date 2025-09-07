@@ -8,10 +8,10 @@
 script = ExtResource("1_qsvg2")
 metadata/_custom_type_script = "uid://du4hisxdpqsi3"
 
-[node name="BT_ActionNode" type="Node" parent="."]
-script = ExtResource("2_2rf0j")
-metadata/_custom_type_script = "uid://besxrvpoc402p"
-
 [node name="BT_ConditionNode" type="Node" parent="."]
 script = ExtResource("3_85seo")
 metadata/_custom_type_script = "uid://5xwy31v3qxud"
+
+[node name="BT_ActionNode" type="Node" parent="."]
+script = ExtResource("2_2rf0j")
+metadata/_custom_type_script = "uid://besxrvpoc402p"

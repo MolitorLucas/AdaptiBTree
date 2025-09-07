@@ -6,8 +6,11 @@ public partial class IsCloseToMouse : BT_ConditionNode
 
     protected override bool CheckCondition(Node actor, Blackboard blackboard)
     {
-        var mousePosition = actor.GetGlobalMousePosition();
-        var distance = actor.GlobalPosition.DistanceTo(mousePosition);
-        return distance <= blackboard.GetValue("DistanceThreshold").As<float>();
+        if (actor is not Node2D actor2d)
+            return false;
+
+        var mousePosition = actor2d.GetGlobalMousePosition();
+        var distance = actor2d.GlobalPosition.DistanceTo(mousePosition);
+        return distance <= blackboard["DistanceThreshold"].As<float>();
     }
 }

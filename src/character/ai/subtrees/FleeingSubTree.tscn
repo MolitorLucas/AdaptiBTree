@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpe1nmfl0yiqt"]
+
+[ext_resource type="Script" uid="uid://0s26oh5hnvr5" path="res://src/BT/node/composite/BT_SelectorNode.cs" id="1_ifcxs"]
+[ext_resource type="Script" uid="uid://c86c2jv2nik1k" path="res://src/character/ai/actions/Flee.cs" id="2_1iq6j"]
+
+[node name="FleeingSubTree" type="Node"]
+script = ExtResource("1_ifcxs")
+metadata/_custom_type_script = "uid://0s26oh5hnvr5"
+
+[node name="BT_ActionNode" type="Node" parent="."]
+script = ExtResource("2_1iq6j")
+metadata/_custom_type_script = "uid://besxrvpoc402p"

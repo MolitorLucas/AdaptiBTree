@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://cr28ppagnaoo8"]
+
+[ext_resource type="PackedScene" uid="uid://cnjbee0h72nw7" path="res://src/character/ai/BasicAI.tscn" id="1_e80uo"]
+[ext_resource type="Script" uid="uid://c00fb43yrnqss" path="res://src/BT/Blackboard.cs" id="2_cxr5p"]
+[ext_resource type="Texture2D" uid="uid://cu48wwpwuqctp" path="res://icon.svg" id="3_tdg3f"]
+[ext_resource type="Script" uid="uid://cg7rwkie8uqah" path="res://src/controllers/MovementController.cs" id="4_dtqjt"]
+
+[sub_resource type="Resource" id="Resource_8ec3e"]
+script = ExtResource("2_cxr5p")
+Data = Dictionary[String, Variant]({
+"CharacterSpeed": 400.0,
+"DistanceThreshold": 500.0
+})
+metadata/_custom_type_script = "uid://c00fb43yrnqss"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ec3e"]
+
+[node name="Player" type="Node2D"]
+
+[node name="BasicAI" parent="." instance=ExtResource("1_e80uo")]
+Blackboard = SubResource("Resource_8ec3e")
+
+[node name="Boneco" type="Sprite2D" parent="."]
+texture = ExtResource("3_tdg3f")
+
+[node name="MovementController" type="CharacterBody2D" parent="."]
+script = ExtResource("4_dtqjt")
+metadata/_custom_type_script = "uid://cg7rwkie8uqah"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovementController"]
+shape = SubResource("CircleShape2D_8ec3e")

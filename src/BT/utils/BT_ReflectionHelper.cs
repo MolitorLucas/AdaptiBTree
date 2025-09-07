@@ -8,12 +8,15 @@ public static class BT_ReflectionHelper
         root.AddChild(newSubtree);   
     }
 
-    public static void InsertSubTreeAbove(BT_Node child, BT_Node newSubTree)
+    public static BT_Node InsertSubTreeAbove(BT_Node child, BT_Node newSubTree)
     {
         BT_Tree root = child.GetParent<BT_Tree>();
-        newSubTree.AddChild(child);
+        GD.Print("Root: " + root.Name);
         root.RemoveChild(child);
         root.AddChild(newSubTree);
+        newSubTree.AddChild(child);
+        newSubTree.MoveChild(child, 0);
+        return newSubTree;
     }
 
     public static void RemoveSubtree(BT_Tree root, BT_Node subtreeToRemove)
