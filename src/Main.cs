@@ -32,9 +32,7 @@ public partial class Main : Control
         {
             RootNode.Tick(RootNode.GetParent<Node2D>()); 
             AddNodeToUI(RootNode, _treeContainer, 0);
-        }
-            
-            
+        }    
     }
 
     private void AddNodeToUI(BT_Node node, VBoxContainer parent, int indent)

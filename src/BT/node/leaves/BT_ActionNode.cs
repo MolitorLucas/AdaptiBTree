@@ -20,16 +20,19 @@ public partial class BT_ActionNode : BT_Node
         {
             _currentTask = Execute(actor, blackboard);
             _lastResult = NodeState.RUNNING;
+            GD.Print("Starting action: " + GetType().Name);
             return _lastResult;
         }
 
         if (!_currentTask.IsCompleted)
         {
+            GD.Print("Action still running: " + GetType().Name);
             return NodeState.RUNNING;
         }
 
         if (_currentTask.IsCompletedSuccessfully)
         {
+            GD.Print("Action completed: " + GetType().Name);
             _lastResult = _currentTask.Result;
         }
         else

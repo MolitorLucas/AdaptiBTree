@@ -1,0 +1,64 @@
+[gd_scene load_steps=12 format=3 uid="uid://bqmwgolfv3rx6"]
+
+[ext_resource type="Script" uid="uid://q6rlreqvhtns" path="res://src/character/ai/AdaptiveAgent.cs" id="1_l0ym4"]
+[ext_resource type="Script" uid="uid://duy316ejwvd2o" path="res://src/character/CharacterStats.cs" id="2_ryat8"]
+[ext_resource type="Texture2D" uid="uid://cu48wwpwuqctp" path="res://icon.svg" id="5_ayjp4"]
+[ext_resource type="Script" uid="uid://bgpdouh351y4j" path="res://src/BT/node/BT_Tree.cs" id="6"]
+[ext_resource type="Script" uid="uid://du4hisxdpqsi3" path="res://src/BT/node/composite/BT_SequenceNode.cs" id="7"]
+[ext_resource type="Script" uid="uid://bsx0x80dx6dw3" path="res://src/character/ai/conditions/IsCloseToMouse.cs" id="9"]
+[ext_resource type="Script" uid="uid://q7dibwvsp5aa" path="res://src/character/ai/adaptative_actions/FleeingAdaptation.cs" id="10"]
+[ext_resource type="Script" uid="uid://bbb085lqlg0nl" path="res://src/character/ai/adaptative_actions/AttackAdaptation.cs" id="12"]
+[ext_resource type="Script" uid="uid://bmelnceiebyq0" path="res://src/character/ai/conditions/IsCloseToOpponent.cs" id="13"]
+[ext_resource type="Script" uid="uid://c86c2jv2nik1k" path="res://src/character/ai/actions/Flee.cs" id="14"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5vcig"]
+radius = 32.0
+
+[node name="Agent" type="Node2D"]
+script = ExtResource("1_l0ym4")
+
+[node name="CharacterStats" type="Node2D" parent="."]
+script = ExtResource("2_ryat8")
+
+[node name="BehaviorTree" type="Node" parent="."]
+script = ExtResource("6")
+
+[node name="RootSelector" type="Node" parent="BehaviorTree"]
+script = ExtResource("7")
+
+[node name="AdaptiveAttackNode" type="Node" parent="BehaviorTree/RootSelector"]
+script = ExtResource("12")
+
+[node name="AdaptiveFleeNode" type="Node" parent="BehaviorTree/RootSelector"]
+script = ExtResource("10")
+
+[node name="FleeSequence" type="Node" parent="BehaviorTree/RootSelector/AdaptiveFleeNode"]
+script = ExtResource("7")
+
+[node name="IsCloseToOpponentCond" type="Node" parent="BehaviorTree/RootSelector/AdaptiveFleeNode/FleeSequence"]
+script = ExtResource("13")
+
+[node name="FleeAction" type="Node" parent="BehaviorTree/RootSelector/AdaptiveFleeNode/FleeSequence"]
+script = ExtResource("14")
+
+[node name="SeekSequence" type="Node" parent="BehaviorTree/RootSelector"]
+script = ExtResource("7")
+
+[node name="NearestPickupCond" type="Node" parent="BehaviorTree/RootSelector/SeekSequence"]
+script = ExtResource("10")
+
+[node name="SeekAction" type="Node" parent="BehaviorTree/RootSelector/SeekSequence"]
+script = ExtResource("9")
+
+[node name="WanderAction" type="Node" parent="BehaviorTree/RootSelector"]
+script = ExtResource("9")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ayjp4")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_5vcig")

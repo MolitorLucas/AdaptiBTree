@@ -1,15 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnjbee0h72nw7"]
+[gd_scene load_steps=5 format=3 uid="uid://cnjbee0h72nw7"]
 
 [ext_resource type="Script" uid="uid://bgpdouh351y4j" path="res://src/BT/node/BT_Tree.cs" id="1_110s3"]
-[ext_resource type="Script" uid="uid://q7dibwvsp5aa" path="res://src/character/ai/adaptative_actions/FleeingAdaptation.cs" id="2_xgkgh"]
-[ext_resource type="PackedScene" uid="uid://3r7yjggynk0g" path="res://bt_sequence_node.tscn" id="3_xgkgh"]
+[ext_resource type="Script" uid="uid://du4hisxdpqsi3" path="res://src/BT/node/composite/BT_SequenceNode.cs" id="2_3igmr"]
+[ext_resource type="Script" uid="uid://bsx0x80dx6dw3" path="res://src/character/ai/conditions/IsCloseToMouse.cs" id="3_0q4hb"]
+[ext_resource type="Script" uid="uid://b7fm5f0lwd0qr" path="res://src/character/ai/actions/GoToMousePosition.cs" id="4_n6jpb"]
 
-[node name="BasicAI" type="Node"]
+[node name="BehaviorTree" type="Node"]
 script = ExtResource("1_110s3")
 metadata/_custom_type_script = "uid://bgpdouh351y4j"
 
-[node name="FleeingAdaptation" type="Node" parent="."]
-script = ExtResource("2_xgkgh")
-metadata/_custom_type_script = "uid://0s26oh5hnvr5"
+[node name="BT_SequenceNode" type="Node" parent="."]
+script = ExtResource("2_3igmr")
+metadata/_custom_type_script = "uid://du4hisxdpqsi3"
 
-[node name="BT_SequenceNode" parent="FleeingAdaptation" instance=ExtResource("3_xgkgh")]
+[node name="BT_ConditionNode" type="Node" parent="BT_SequenceNode"]
+script = ExtResource("3_0q4hb")
+metadata/_custom_type_script = "uid://5xwy31v3qxud"
+
+[node name="BT_ActionNode" type="Node" parent="BT_SequenceNode"]
+script = ExtResource("4_n6jpb")
+metadata/_custom_type_script = "uid://besxrvpoc402p"
