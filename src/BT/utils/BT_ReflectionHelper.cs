@@ -11,7 +11,6 @@ public static class BT_ReflectionHelper
     public static BT_Node InsertSubTreeAbove(BT_Node child, BT_Node newSubTree)
     {
         BT_Tree root = child.GetParent<BT_Tree>();
-        GD.Print("Root: " + root.Name);
         root.RemoveChild(child);
         root.AddChild(newSubTree);
         newSubTree.AddChild(child);

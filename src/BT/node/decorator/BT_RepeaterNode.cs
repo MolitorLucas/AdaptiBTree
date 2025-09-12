@@ -35,7 +35,6 @@ public partial class BT_RepeaterNode : BT_Node
             if (ChildNode.CurrentState == NodeState.SUCCESS)
                 return NodeState.SUCCESS;
             count++;
-            GD.Print($"RepeaterNode: Executed {count} times.");
         }
         if (ChildNode.CurrentState == NodeState.RUNNING)
             return NodeState.RUNNING;

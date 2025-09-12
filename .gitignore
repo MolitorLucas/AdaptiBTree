@@ -2,4 +2,7 @@
 .godot/
 /android/
 .vscode/
+*.old*
+*.csproj
+*.sln
 

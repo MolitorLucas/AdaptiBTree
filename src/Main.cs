@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 public partial class Main : Control
 {
     [Export]
-    public BT_Tree RootNode { get; set; }
+    public BT_Tree Tree { get; set; }
 
     private VBoxContainer _treeContainer;
 
@@ -28,10 +28,10 @@ public partial class Main : Control
             if (child is Label label)
                 _treeContainer.RemoveChild(label);
         }
-        if (RootNode != null)
+        if (Tree != null)
         {
-            RootNode.Tick(RootNode.GetParent<Node2D>()); 
-            AddNodeToUI(RootNode, _treeContainer, 0);
+            Tree.Tick(Tree.GetParent<Node2D>()); 
+            AddNodeToUI(Tree, _treeContainer, 0);
         }    
     }
 
@@ -39,7 +39,7 @@ public partial class Main : Control
     {
         var label = new Label
         {
-            Text = $"{new string(' ', indent * 6)}{node.GetType().Name}: {node.CurrentState}",
+            Text = $"{new string(' ', indent * 6)}{node.Name}: {node.CurrentState}",
             Modulate = GetColorForState(node.CurrentState)
         };
         parent.AddChild(label);

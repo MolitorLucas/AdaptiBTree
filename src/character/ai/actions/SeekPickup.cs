@@ -12,8 +12,8 @@ public partial class SeekPickup : BT_ActionNode
         if (!pickups.Any()) return Task.FromResult(NodeState.FAILURE);
 
         Area2D nearest = null;
-        float best = float.MaxValue;
-        foreach (var p in pickups)
+        float best = pickups.First().GlobalPosition.DistanceTo(actor2d.GlobalPosition);;
+        foreach (var p in pickups.Skip(1))
         {
             var dist = p.GlobalPosition.DistanceTo(actor2d.GlobalPosition);
             if (dist < best)

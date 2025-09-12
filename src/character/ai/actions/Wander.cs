@@ -15,7 +15,6 @@ public partial class Wander : BT_ActionNode
             var x = _rng.RandfRange(50, size.X - 50);
             var y = _rng.RandfRange(50, size.Y - 50);
             _target = new Vector2(x, y);
-            GD.Print($"New target: {_target}");
         }
 
         var speed = blackboard["CharacterSpeed"].As<float>();

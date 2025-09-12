@@ -37,8 +37,6 @@ public partial class GameController : Node2D
             _spawnTimer = 0f;
             SpawnPickup();
         }
-
-        CheckSpecialCollisions();
         CheckWinCondition();
     }
 
@@ -86,12 +84,10 @@ public partial class GameController : Node2D
 
         if (statsA.Points >= 100)
         {
-            GD.Print($"Agent A wins with {statsA.Points} points");
             GetTree().Paused = true;
         }
         else if (statsB.Points >= 100)
         {
-            GD.Print($"Agent B wins with {statsB.Points} points");
             GetTree().Paused = true;
         }
     }

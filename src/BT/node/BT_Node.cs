@@ -5,7 +5,7 @@ using System;
 public abstract partial class BT_Node : Node
 {
     public bool IsActive = false;
-    private NodeState _currentState = NodeState.INVALID;
+    private NodeState _currentState = NodeState.IDLE;
     public NodeState CurrentState
     {
         get => _currentState;
