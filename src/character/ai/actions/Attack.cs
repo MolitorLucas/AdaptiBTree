@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 
 public partial class Attack : BT_ActionNode
 {
-    [Export]
-    public int Amount { get; set; } = 5;
 
     public override Task<NodeState> Execute(Node actor, Blackboard blackboard)
     {
@@ -17,13 +15,8 @@ public partial class Attack : BT_ActionNode
 
         if (!stats.HasSpecialPower) return Task.FromResult(NodeState.FAILURE);
 
-        if (agent.GlobalPosition.DistanceTo(target.GlobalPosition) <= 24)
-        {
-            stats.StealPointsFrom(otherStats, Amount);
-            stats.GrantSpecial(0);
-            return Task.FromResult(NodeState.SUCCESS);
-        }
+        agent.GlobalPosition = agent.GlobalPosition.MoveToward(target.GlobalPosition, (float) GetPhysicsProcessDeltaTime() * blackboard["CharacterSpeed"].As<float>());
 
-        return Task.FromResult(NodeState.FAILURE);
+        return Task.FromResult(NodeState.SUCCESS);
     }
 }

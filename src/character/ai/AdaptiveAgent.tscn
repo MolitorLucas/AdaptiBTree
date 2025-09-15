@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bqmwgolfv3rx6"]
+[gd_scene load_steps=9 format=3 uid="uid://bqmwgolfv3rx6"]
 
 [ext_resource type="Script" uid="uid://q6rlreqvhtns" path="res://src/character/ai/AdaptiveAgent.cs" id="1_l0ym4"]
 [ext_resource type="Script" uid="uid://duy316ejwvd2o" path="res://src/character/CharacterStats.cs" id="2_ryat8"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://du4hisxdpqsi3" path="res://src/BT/node/composite/BT_SequenceNode.cs" id="7"]
 [ext_resource type="Script" uid="uid://bsx0x80dx6dw3" path="res://src/character/ai/conditions/IsCloseToMouse.cs" id="9"]
 [ext_resource type="Script" uid="uid://q7dibwvsp5aa" path="res://src/character/ai/adaptative_actions/FleeingAdaptation.cs" id="10"]
-[ext_resource type="Script" uid="uid://bbb085lqlg0nl" path="res://src/character/ai/adaptative_actions/AttackAdaptation.cs" id="12"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5vcig"]
 radius = 32.0
@@ -30,16 +29,10 @@ script = ExtResource("7")
 [node name="NearestPickupCond" type="Node" parent="BehaviorTree/RootSelector/SeekSequence"]
 script = ExtResource("10")
 
-[node name="AdaptToAttack" type="Node" parent="BehaviorTree/RootSelector/SeekSequence"]
-script = ExtResource("12")
-
-[node name="SeekAction" type="Node" parent="BehaviorTree/RootSelector/SeekSequence/AdaptToAttack"]
+[node name="SeekAction" type="Node" parent="BehaviorTree/RootSelector/SeekSequence"]
 script = ExtResource("9")
 
-[node name="AdaptToFlee" type="Node" parent="BehaviorTree/RootSelector"]
-script = ExtResource("10")
-
-[node name="WanderAction" type="Node" parent="BehaviorTree/RootSelector/AdaptToFlee"]
+[node name="WanderAction" type="Node" parent="BehaviorTree/RootSelector"]
 script = ExtResource("9")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

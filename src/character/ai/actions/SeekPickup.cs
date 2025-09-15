@@ -8,23 +8,8 @@ public partial class SeekPickup : BT_ActionNode
     {
         if (actor is not Node2D actor2d) return Task.FromResult(NodeState.FAILURE);
 
-        var pickups = actor.GetTree().GetNodesInGroup("pickups").OfType<Area2D>();
-        if (!pickups.Any()) return Task.FromResult(NodeState.FAILURE);
-
-        Area2D nearest = null;
-        float best = pickups.First().GlobalPosition.DistanceTo(actor2d.GlobalPosition);;
-        foreach (var p in pickups.Skip(1))
-        {
-            var dist = p.GlobalPosition.DistanceTo(actor2d.GlobalPosition);
-            if (dist < best)
-            {
-                best = dist;
-                nearest = p;
-            }
-        }
-
+        var nearest = blackboard["BestPickupFor"+actor2d.Name].As<Area2D>();
         if (nearest == null) return Task.FromResult(NodeState.FAILURE);
-
         var speed = blackboard["CharacterSpeed"].As<float>();
         var delta = (float)actor2d.GetPhysicsProcessDeltaTime();
         actor2d.GlobalPosition = actor2d.GlobalPosition.MoveToward(nearest.GlobalPosition, speed * delta);

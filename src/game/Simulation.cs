@@ -19,7 +19,6 @@ public partial class Simulation : Node2D
             agentB.Opponent = agentA;
         }
         var controller = GetNode<GameController>("GameController");
-        AddChild(controller);
 
         controller.PickupScene = GD.Load<PackedScene>("res://src/game/Pickup.tscn");
         controller.SpecialPickupScene = GD.Load<PackedScene>("res://src/game/SpecialPickup.tscn");

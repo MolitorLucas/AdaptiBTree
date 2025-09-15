@@ -11,13 +11,12 @@ public partial class Pickup : Area2D
 
     public override void _Ready()
     {
-        Connect(SignalName.BodyEntered, new Callable(this, nameof(OnBodyEntered)));
+        Connect(Area2D.SignalName.BodyEntered, new Callable(this, nameof(OnBodyEntered)));
         AddToGroup("pickups");
     }
 
     private void OnBodyEntered(CharacterBody2D body)
     {
-        GD.Print("Pickup collected by: " + body.Name);
         if (body is CharacterBody2D node)
         {
             Agent agent = node.GetParent<Agent>();
@@ -28,7 +27,13 @@ public partial class Pickup : Area2D
                 stats.AddPoints(Value);
                 if (IsSpecial)
                 {
-                    stats.GrantSpecial(5.0f);
+                    if (stats.HasSpecialPower)
+                    {
+                        stats.BuffAttack(stats.AttackPower / 2, 2.5f);
+                    }
+                    else {
+                        stats.GrantSpecial(5.0f);
+                    }
                 }
                 QueueFree();
             }
