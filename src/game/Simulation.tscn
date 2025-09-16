@@ -77,6 +77,15 @@ Blackboard = SubResource("Resource_kdget")
 [node name="RootSelector" type="Node" parent="AgentA/BehaviorTree"]
 script = ExtResource("6_tnrap")
 
+[node name="AttackSequence" type="Node" parent="AgentA/BehaviorTree/RootSelector"]
+script = ExtResource("7_37kew")
+
+[node name="HasSpecialCond" type="Node" parent="AgentA/BehaviorTree/RootSelector/AttackSequence"]
+script = ExtResource("8_pk3lf")
+
+[node name="AttackAction" type="Node" parent="AgentA/BehaviorTree/RootSelector/AttackSequence"]
+script = ExtResource("9_jndth")
+
 [node name="PickupSequence" type="Node" parent="AgentA/BehaviorTree/RootSelector"]
 script = ExtResource("7_37kew")
 
@@ -89,15 +98,6 @@ script = ExtResource("11_b5yrx")
 
 [node name="WanderAction" type="Node" parent="AgentA/BehaviorTree/RootSelector"]
 script = ExtResource("12_n80cf")
-
-[node name="AttackSequence" type="Node" parent="AgentA/BehaviorTree/RootSelector"]
-script = ExtResource("7_37kew")
-
-[node name="HasSpecialCond" type="Node" parent="AgentA/BehaviorTree/RootSelector/AttackSequence"]
-script = ExtResource("8_pk3lf")
-
-[node name="AttackAction" type="Node" parent="AgentA/BehaviorTree/RootSelector/AttackSequence"]
-script = ExtResource("9_jndth")
 
 [node name="Sprite2D" type="Sprite2D" parent="AgentA"]
 scale = Vector2(0.5, 0.5)
