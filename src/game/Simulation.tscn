@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://qmhq7h24mmgl"]
+[gd_scene load_steps=23 format=3 uid="uid://qmhq7h24mmgl"]
 
 [ext_resource type="Script" uid="uid://ckg58l7xyfoac" path="res://src/game/Simulation.cs" id="1"]
 [ext_resource type="Script" uid="uid://ord5pidwmr3i" path="res://src/Main.cs" id="2_vlggx"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://b7dvk2tcflok6" path="res://src/character/ai/actions/Wander.cs" id="12_n80cf"]
 [ext_resource type="Texture2D" uid="uid://cu48wwpwuqctp" path="res://icon.svg" id="13_1cw6j"]
 [ext_resource type="Script" uid="uid://q6rlreqvhtns" path="res://src/character/ai/AdaptiveAgent.cs" id="15_37kew"]
+[ext_resource type="Script" uid="uid://bbb085lqlg0nl" path="res://src/character/ai/adaptative_actions/AttackAdaptation.cs" id="18_kdget"]
 
 [sub_resource type="Resource" id="Resource_kdget"]
 script = ExtResource("6_rsuj6")
@@ -62,11 +63,11 @@ Tree = NodePath("../../AgentA/BehaviorTree")
 metadata/_edit_use_anchors_ = true
 
 [node name="AgentA" type="Node2D" parent="." node_paths=PackedStringArray("Opponent")]
-position = Vector2(1240, 869)
+position = Vector2(-85, 786)
 script = ExtResource("3_47kqk")
 Opponent = NodePath("../AgentB")
 
-[node name="CharacterStats" type="Node2D" parent="AgentA"]
+[node name="CharacterStats" type="Node" parent="AgentA"]
 script = ExtResource("4_rsuj6")
 
 [node name="BehaviorTree" type="Node" parent="AgentA"]
@@ -75,15 +76,6 @@ Blackboard = SubResource("Resource_kdget")
 
 [node name="RootSelector" type="Node" parent="AgentA/BehaviorTree"]
 script = ExtResource("6_tnrap")
-
-[node name="AttackSequence" type="Node" parent="AgentA/BehaviorTree/RootSelector"]
-script = ExtResource("7_37kew")
-
-[node name="HasSpecialCond" type="Node" parent="AgentA/BehaviorTree/RootSelector/AttackSequence"]
-script = ExtResource("8_pk3lf")
-
-[node name="AttackAction" type="Node" parent="AgentA/BehaviorTree/RootSelector/AttackSequence"]
-script = ExtResource("9_jndth")
 
 [node name="PickupSequence" type="Node" parent="AgentA/BehaviorTree/RootSelector"]
 script = ExtResource("7_37kew")
@@ -98,6 +90,15 @@ script = ExtResource("11_b5yrx")
 [node name="WanderAction" type="Node" parent="AgentA/BehaviorTree/RootSelector"]
 script = ExtResource("12_n80cf")
 
+[node name="AttackSequence" type="Node" parent="AgentA/BehaviorTree/RootSelector"]
+script = ExtResource("7_37kew")
+
+[node name="HasSpecialCond" type="Node" parent="AgentA/BehaviorTree/RootSelector/AttackSequence"]
+script = ExtResource("8_pk3lf")
+
+[node name="AttackAction" type="Node" parent="AgentA/BehaviorTree/RootSelector/AttackSequence"]
+script = ExtResource("9_jndth")
+
 [node name="Sprite2D" type="Sprite2D" parent="AgentA"]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("13_1cw6j")
@@ -108,29 +109,33 @@ texture = ExtResource("13_1cw6j")
 shape = SubResource("CircleShape2D_rsuj6")
 
 [node name="AgentB" type="Node2D" parent="." node_paths=PackedStringArray("Opponent")]
+position = Vector2(1364, -65)
 script = ExtResource("15_37kew")
 Opponent = NodePath("../AgentA")
 
-[node name="CharacterStats" type="Node2D" parent="AgentB"]
+[node name="CharacterStats" type="Node" parent="AgentB"]
 script = ExtResource("4_rsuj6")
 
 [node name="BehaviorTree" type="Node" parent="AgentB"]
 script = ExtResource("5_kdget")
 Blackboard = SubResource("Resource_kdget")
 
-[node name="RootSelector" type="Node" parent="AgentB/BehaviorTree"]
+[node name="AdaptToAttack" type="Node" parent="AgentB/BehaviorTree"]
+script = ExtResource("18_kdget")
+
+[node name="RootSelector" type="Node" parent="AgentB/BehaviorTree/AdaptToAttack"]
 script = ExtResource("6_tnrap")
 
-[node name="SeekSequence" type="Node" parent="AgentB/BehaviorTree/RootSelector"]
+[node name="SeekSequence" type="Node" parent="AgentB/BehaviorTree/AdaptToAttack/RootSelector"]
 script = ExtResource("7_37kew")
 
-[node name="NearestPickupCond" type="Node" parent="AgentB/BehaviorTree/RootSelector/SeekSequence"]
+[node name="NearestPickupCond" type="Node" parent="AgentB/BehaviorTree/AdaptToAttack/RootSelector/SeekSequence"]
 script = ExtResource("10_xmy4i")
 
-[node name="SeekAction" type="Node" parent="AgentB/BehaviorTree/RootSelector/SeekSequence"]
+[node name="SeekAction" type="Node" parent="AgentB/BehaviorTree/AdaptToAttack/RootSelector/SeekSequence"]
 script = ExtResource("11_b5yrx")
 
-[node name="WanderAction" type="Node" parent="AgentB/BehaviorTree/RootSelector"]
+[node name="WanderAction" type="Node" parent="AgentB/BehaviorTree/AdaptToAttack/RootSelector"]
 script = ExtResource("12_n80cf")
 
 [node name="Sprite2D" type="Sprite2D" parent="AgentB"]
@@ -145,7 +150,7 @@ slide_on_ceiling = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AgentB/CharacterBody2D"]
 shape = SubResource("CircleShape2D_5vcig")
 
-[node name="GameController" type="Node2D" parent="." node_paths=PackedStringArray("AgentA", "AgentB")]
+[node name="GameController" type="Node" parent="." node_paths=PackedStringArray("AgentA", "AgentB")]
 script = ExtResource("4_gx2yj")
 PickupScene = ExtResource("5_mkkxa")
 SpecialPickupScene = ExtResource("6_vlggx")

@@ -15,8 +15,8 @@ public partial class FleeingAdaptation : BT_AdaptiveNode
         {
             return;
         }
-        string subTreeRootNode = (string)blackboard["fleeingSubTree"];
-        BT_ReflectionHelper.RemoveSubtree(actor.GetNode<BT_Tree>("BehaviorTree"), GetNode<BT_Node>(subTreeRootNode));
+        NodePath subTreeRootNode = blackboard["fleeingSubTree"].As<NodePath>();
+        BT_ReflectionHelper.RemoveSubtree(actor.GetNode<BT_Tree>("BehaviorTree"), GetNode<BT_Node>($"%{subTreeRootNode}"));
         blackboard.RemoveKey("fleeingSubTree");
     }
 
@@ -33,8 +33,9 @@ public partial class FleeingAdaptation : BT_AdaptiveNode
             return;
         }
         BT_Node subtree = GD.Load<PackedScene>("res://src/character/ai/subtrees/FleeingSubTree.tscn").Instantiate<BT_Node>();
-        blackboard["fleeingSubTree"] = subtree.GetPath();
         BT_ReflectionHelper.InsertSubTreeBelow(actor.GetNode<BT_Tree>("BehaviorTree").GetChild<BT_Node>(0), subtree);
+        subtree.UniqueNameInOwner = true;
+        blackboard["fleeingSubTree"] = subtree.GetPath();
     }
 
 

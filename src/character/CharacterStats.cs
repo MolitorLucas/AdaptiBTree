@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class CharacterStats : Node2D
+public partial class CharacterStats : Node
 {
     [Export]
     public int Points { get; private set; } = 0;

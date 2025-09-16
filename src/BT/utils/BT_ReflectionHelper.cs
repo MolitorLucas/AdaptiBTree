@@ -14,7 +14,6 @@ public static class BT_ReflectionHelper
         root.RemoveChild(child);
         root.AddChild(newSubTree);
         newSubTree.AddChild(child);
-        newSubTree.MoveChild(child, 0);
         return newSubTree;
     }
 
@@ -23,6 +22,15 @@ public static class BT_ReflectionHelper
         if (root.HasNode(subtreeToRemove.GetPath()))
         {
             root.RemoveChild(subtreeToRemove);
+            subtreeToRemove.QueueFree();
+        }
+    }
+    public static void RemoveSubtree(BT_Node root, BT_Node subtreeToRemove)
+    {
+        if (root.HasNode(subtreeToRemove.GetPath()))
+        {
+            root.RemoveChild(subtreeToRemove);
+            subtreeToRemove.QueueFree();
         }
     }
 }

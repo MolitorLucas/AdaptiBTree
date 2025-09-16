@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class GameController : Node2D
+public partial class GameController : Node
 {
     [Export]
     public PackedScene PickupScene { get; set; }
@@ -49,8 +49,8 @@ public partial class GameController : Node2D
         var scene = isSpecial ? SpecialPickupScene : PickupScene;
         if (scene == null) return;
         var instance = scene.Instantiate<Area2D>();
-        var x = _rng.RandfRange(50, GetViewportRect().Size.X - 50);
-        var y = _rng.RandfRange(50, GetViewportRect().Size.Y - 50);
+        var x = _rng.RandfRange(50, GetViewport().GetVisibleRect().Size.X - 50);
+        var y = _rng.RandfRange(50, GetViewport().GetVisibleRect().Size.Y - 50);
         instance.Position = new Vector2(x, y);
         AddChild(instance);
     }
