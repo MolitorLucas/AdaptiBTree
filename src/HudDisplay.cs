@@ -1,11 +1,14 @@
 using Godot;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
-public partial class Main : Control
+public partial class HudDisplay : Control
 {
     [Export]
-    public BT_Tree Tree { get; set; }
+    public Agent Agent { get; set; }
+
+    private BT_Tree Tree => Agent?.GetNode<BT_Tree>("BehaviorTree");
 
     private VBoxContainer _treeContainer;
 
@@ -14,11 +17,13 @@ public partial class Main : Control
         _treeContainer = new VBoxContainer();
         AddChild(_treeContainer);
         UpdateTree();
+        UpdateAgentPoints();
     }
 
     public override void _Process(double delta)
     {
         UpdateTree();
+        UpdateAgentPoints();
     }
 
     private void UpdateTree()
@@ -26,20 +31,36 @@ public partial class Main : Control
         foreach (var child in _treeContainer.GetChildren())
         {
             if (child is Label label)
+            {
                 _treeContainer.RemoveChild(label);
+                label.QueueFree();
+            }
         }
         if (Tree != null)
         {
-            Tree.Tick(Tree.GetParent<Node2D>()); 
+            Tree.Tick(Tree.GetParent<Node2D>());
             AddNodeToUI(Tree, _treeContainer, 0);
         }    
+    }
+
+    private void UpdateAgentPoints()
+    {
+        if (Agent == null) return;
+
+        var pointsLabel = new Label
+        {
+            Name = "PointsLabel",
+            Modulate = Agent.GetNode("Sprite2D") is Sprite2D sprite ? sprite.Modulate : Colors.White,
+            Text = $"Points: {Agent.GetNodeOrNull<CharacterStats>("CharacterStats")?.Points ?? 0}"
+            };
+        _treeContainer.AddChild(pointsLabel);
     }
 
     private void AddNodeToUI(BT_Node node, VBoxContainer parent, int indent)
     {
         var label = new Label
         {
-            Text = $"{new string(' ', indent * 6)}{node.Name}: {node.CurrentState}",
+            Text = $"{string.Concat(Enumerable.Repeat("|     ", indent))}{node.Name}: {node.CurrentState}",
             Modulate = GetColorForState(node.CurrentState)
         };
         parent.AddChild(label);
@@ -49,6 +70,7 @@ public partial class Main : Control
             if (child is BT_Node btChild)
                 AddNodeToUI(btChild, parent, indent + 1);
         }
+
     }
     
     private void AddNodeToUI(BT_Tree node, VBoxContainer parent, int indent)
@@ -58,6 +80,7 @@ public partial class Main : Control
             Text = $"{new string(' ', indent * 6)}{node.GetType().Name}: {node.CurrentState}",
             Modulate = GetColorForState(node.CurrentState)
         };
+        
         parent.AddChild(label);
 
         foreach (var child in node.GetChildren())

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://djn7kgjrvxnd"]
 
-[ext_resource type="Script" uid="uid://ord5pidwmr3i" path="res://src/Main.cs" id="1_4gxt3"]
+[ext_resource type="Script" uid="uid://ord5pidwmr3i" path="res://src/HudDisplay.cs" id="1_4gxt3"]
 [ext_resource type="PackedScene" uid="uid://cnjbee0h72nw7" path="res://src/character/ai/BasicAI.tscn" id="2_5qjmp"]
 [ext_resource type="Script" uid="uid://c00fb43yrnqss" path="res://src/BT/Blackboard.cs" id="3_vjwby"]
 [ext_resource type="Texture2D" uid="uid://cu48wwpwuqctp" path="res://icon.svg" id="5_vjwby"]

@@ -1,50 +1,69 @@
-[gd_scene load_steps=12 format=3 uid="uid://c837h0baobvyh"]
+[gd_scene load_steps=15 format=3 uid="uid://c837h0baobvyh"]
 
-[ext_resource type="Script" uid="uid://bgpdouh351y4j" path="res://src/BT/node/BT_Tree.cs" id="1"]
-[ext_resource type="Script" uid="uid://okb0ymr56a8c" path="res://src/character/ai/BasicAgent.cs" id="1_pqpba"]
-[ext_resource type="Script" uid="uid://du4hisxdpqsi3" path="res://src/BT/node/composite/BT_SequenceNode.cs" id="2"]
-[ext_resource type="Script" uid="uid://duy316ejwvd2o" path="res://src/character/CharacterStats.cs" id="2_qp1cj"]
-[ext_resource type="Script" uid="uid://0s26oh5hnvr5" path="res://src/BT/node/composite/BT_SelectorNode.cs" id="3"]
-[ext_resource type="Script" uid="uid://retxo8s44yit" path="res://src/character/ai/conditions/HasSpecial.cs" id="4"]
-[ext_resource type="Script" uid="uid://cifty2yphprm" path="res://src/character/ai/actions/Attack.cs" id="5"]
-[ext_resource type="Script" uid="uid://dt7gdrs7gjxff" path="res://src/character/ai/actions/SeekPickup.cs" id="6"]
-[ext_resource type="Script" uid="uid://b7dvk2tcflok6" path="res://src/character/ai/actions/Wander.cs" id="7"]
-[ext_resource type="Script" uid="uid://de14igofdkiam" path="res://src/character/ai/conditions/NearestPickupExists.cs" id="7_gh0vx"]
-[ext_resource type="Texture2D" uid="uid://cu48wwpwuqctp" path="res://icon.svg" id="9_iot42"]
+[ext_resource type="Script" uid="uid://okb0ymr56a8c" path="res://src/character/ai/BasicAgent.cs" id="1_ms6o1"]
+[ext_resource type="Script" uid="uid://duy316ejwvd2o" path="res://src/character/CharacterStats.cs" id="2_euud7"]
+[ext_resource type="Script" uid="uid://bgpdouh351y4j" path="res://src/BT/node/BT_Tree.cs" id="3_s0oay"]
+[ext_resource type="Script" uid="uid://c00fb43yrnqss" path="res://src/BT/Blackboard.cs" id="4_6aqfp"]
+[ext_resource type="Script" uid="uid://0s26oh5hnvr5" path="res://src/BT/node/composite/BT_SelectorNode.cs" id="5_4nee1"]
+[ext_resource type="Script" uid="uid://du4hisxdpqsi3" path="res://src/BT/node/composite/BT_SequenceNode.cs" id="6_8nqpo"]
+[ext_resource type="Script" uid="uid://retxo8s44yit" path="res://src/character/ai/conditions/HasSpecial.cs" id="7_q6xsu"]
+[ext_resource type="Script" uid="uid://cifty2yphprm" path="res://src/character/ai/actions/Attack.cs" id="8_a18os"]
+[ext_resource type="Script" uid="uid://de14igofdkiam" path="res://src/character/ai/conditions/NearestPickupExists.cs" id="9_xem1k"]
+[ext_resource type="Script" uid="uid://dt7gdrs7gjxff" path="res://src/character/ai/actions/SeekPickup.cs" id="10_liatr"]
+[ext_resource type="Script" uid="uid://b7dvk2tcflok6" path="res://src/character/ai/actions/Wander.cs" id="11_4fsj3"]
+[ext_resource type="Texture2D" uid="uid://cu48wwpwuqctp" path="res://icon.svg" id="12_28861"]
 
-[node name="Agent" type="Node2D"]
-script = ExtResource("1_pqpba")
+[sub_resource type="Resource" id="Resource_kdget"]
+script = ExtResource("4_6aqfp")
+Data = Dictionary[String, Variant]({
+"CharacterSpeed": 400.0
+})
+metadata/_custom_type_script = "uid://c00fb43yrnqss"
 
-[node name="CharacterStats" type="Node2D" parent="."]
-script = ExtResource("2_qp1cj")
+[sub_resource type="CircleShape2D" id="CircleShape2D_rsuj6"]
+radius = 34.0588
+
+[node name="AgentA" type="Node2D" node_paths=PackedStringArray("Opponent")]
+script = ExtResource("1_ms6o1")
+Opponent = NodePath("")
+
+[node name="CharacterStats" type="Node" parent="."]
+script = ExtResource("2_euud7")
 
 [node name="BehaviorTree" type="Node" parent="."]
-script = ExtResource("1")
+script = ExtResource("3_s0oay")
+Blackboard = SubResource("Resource_kdget")
 
 [node name="RootSelector" type="Node" parent="BehaviorTree"]
-script = ExtResource("3")
+script = ExtResource("5_4nee1")
 
 [node name="AttackSequence" type="Node" parent="BehaviorTree/RootSelector"]
-script = ExtResource("2")
+script = ExtResource("6_8nqpo")
 
 [node name="HasSpecialCond" type="Node" parent="BehaviorTree/RootSelector/AttackSequence"]
-script = ExtResource("4")
+script = ExtResource("7_q6xsu")
 
 [node name="AttackAction" type="Node" parent="BehaviorTree/RootSelector/AttackSequence"]
-script = ExtResource("5")
+script = ExtResource("8_a18os")
 
-[node name="PickupSelector" type="Node" parent="BehaviorTree/RootSelector"]
-script = ExtResource("3")
+[node name="PickupSequence" type="Node" parent="BehaviorTree/RootSelector"]
+script = ExtResource("6_8nqpo")
 
-[node name="NearestPickupCond" type="Node" parent="BehaviorTree/RootSelector/PickupSelector"]
-script = ExtResource("7_gh0vx")
+[node name="NearestPickupCond" type="Node" parent="BehaviorTree/RootSelector/PickupSequence"]
+script = ExtResource("9_xem1k")
+SearchRadius = 500.0
 
-[node name="SeekAction" type="Node" parent="BehaviorTree/RootSelector/PickupSelector"]
-script = ExtResource("6")
+[node name="SeekAction" type="Node" parent="BehaviorTree/RootSelector/PickupSequence"]
+script = ExtResource("10_liatr")
 
 [node name="WanderAction" type="Node" parent="BehaviorTree/RootSelector"]
-script = ExtResource("7")
+script = ExtResource("11_4fsj3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_iot42")
+texture = ExtResource("12_28861")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_rsuj6")
