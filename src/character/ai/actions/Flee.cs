@@ -6,13 +6,15 @@ public partial class Flee : BT_ActionNode
 {
     public override Task<NodeState> Execute(Node actor, Blackboard blackboard)
     {
-        if (actor is not Agent actor2d)
+        if (actor is not Agent agent)
             return Task.FromResult(NodeState.FAILURE);
 
-        var target = blackboard["SafePosition"].As<Vector2>();
-        var speed = blackboard["CharacterSpeed"].As<float>();
-        var delta = (float)actor2d.GetPhysicsProcessDeltaTime();
-        actor2d.GlobalPosition = actor2d.GlobalPosition.MoveToward(target, speed * delta);
+        var speed = blackboard["CharacterSpeed"].As<float>()*1.05f;
+        var delta = (float)agent.GetPhysicsProcessDeltaTime();
+        CharacterBody2D agentBody = agent.GetNodeOrNull<CharacterBody2D>("CharacterBody2D");
+        agentBody.SetVelocity(agent.GlobalPosition.DirectionTo(agent.Opponent.GlobalPosition) * -speed * delta);
+        agentBody.MoveAndSlide();
+        agent.GlobalPosition = agentBody.GlobalPosition;
 
         return Task.FromResult(NodeState.SUCCESS);
     }

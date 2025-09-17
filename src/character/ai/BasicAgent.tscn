@@ -21,11 +21,10 @@ Data = Dictionary[String, Variant]({
 metadata/_custom_type_script = "uid://c00fb43yrnqss"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsuj6"]
-radius = 34.0588
+radius = 32.0
 
-[node name="AgentA" type="Node2D" node_paths=PackedStringArray("Opponent")]
+[node name="AgentA" type="Node2D"]
 script = ExtResource("1_ms6o1")
-Opponent = NodePath("")
 
 [node name="CharacterStats" type="Node" parent="."]
 script = ExtResource("2_euud7")

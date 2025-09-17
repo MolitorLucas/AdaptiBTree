@@ -12,6 +12,11 @@ public partial class HudDisplay : Control
 
     private VBoxContainer _treeContainer;
 
+    private Label pointsLabel = new()
+    {
+        Name = "PointsLabel",
+    };
+
     public override void _Ready()
     {
         _treeContainer = new VBoxContainer();
@@ -33,7 +38,6 @@ public partial class HudDisplay : Control
             if (child is Label label)
             {
                 _treeContainer.RemoveChild(label);
-                label.QueueFree();
             }
         }
         if (Tree != null)
@@ -47,12 +51,8 @@ public partial class HudDisplay : Control
     {
         if (Agent == null) return;
 
-        var pointsLabel = new Label
-        {
-            Name = "PointsLabel",
-            Modulate = Agent.GetNode("Sprite2D") is Sprite2D sprite ? sprite.Modulate : Colors.White,
-            Text = $"Points: {Agent.GetNodeOrNull<CharacterStats>("CharacterStats")?.Points ?? 0}"
-            };
+        pointsLabel.Modulate = Agent.GetNode("Sprite2D") is Sprite2D sprite ? sprite.Modulate : Colors.White;
+        pointsLabel.Text = $"Points: {Agent.GetNodeOrNull<CharacterStats>("CharacterStats")?.Points ?? 0}";
         _treeContainer.AddChild(pointsLabel);
     }
 
@@ -70,7 +70,6 @@ public partial class HudDisplay : Control
             if (child is BT_Node btChild)
                 AddNodeToUI(btChild, parent, indent + 1);
         }
-
     }
     
     private void AddNodeToUI(BT_Tree node, VBoxContainer parent, int indent)
